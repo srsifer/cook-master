@@ -8,4 +8,14 @@ const createUser = async (name, email, password) => {
   return inserted.ops[0];
 };
 
-module.exports = { createUser };
+const findEmail = async (email) => {
+  const db = await connection();
+  const emailexist = await db
+  .collection('users').findOne({ email });
+  return emailexist;
+};
+
+module.exports = { 
+  createUser,
+  findEmail,
+};
