@@ -4,9 +4,8 @@ const createUserServices = require('../../services/createUserServices');
 const create = async (req, res) => {
   const { name, email, password } = req.body;
    const result = await createUserServices.createUserRules(name, email, password);
-  
+  console.log(result);
   if ('status' in result) {
-    console.log(result.status, result.message);
     return res.status(result.status).json({ message: result.message }); 
   }
    res.status(201).json(result);

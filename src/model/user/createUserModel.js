@@ -4,11 +4,12 @@ const createUser = async (name, email, password) => {
   const db = await connection();
   const inserted = await db
   .collection('users')
-  .insertOne({ user: { name, email, password, role: 'user' } });
+  .insertOne({ name, email, password, role: 'user' });
   return inserted.ops[0];
 };
 
 const findEmail = async (email) => {
+  console.log(email);
   const db = await connection();
   const emailexist = await db
   .collection('users').findOne({ email });
