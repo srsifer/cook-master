@@ -24,29 +24,12 @@ const createObjectRecipe = (decoded, recipe) => {
  const { name, ingredients, preparation } = recipe;
  const { _id } = decoded; 
  const objectRecipe = {
-   recipe: {
      name,
      ingredients,
      preparation,
      userId: _id,
-   },
  };
  return objectRecipe;
-};
-
-const resultFilter = (result) => {
-  const { recipe, _id } = result;
-  const { name, ingredients, preparation, userId } = recipe;
-  const resultFiltred = {
-    recipe: {
-      name,
-      ingredients,
-      preparation,
-      userId,
-     _id,
-    },
-  };
-   return resultFiltred;
 };
 
 const createRecipeService = async (token, recipes) => {
@@ -57,14 +40,19 @@ const createRecipeService = async (token, recipes) => {
     const objectRecipe = createObjectRecipe(decoded, recipes);
 
     const result = await recipesModel.createRecipesInDB(objectRecipe);
-    const resultFiltred = await resultFilter(result);
-    console.log(resultFiltred);
-    return resultFiltred;
+
+    return { recipe: result };
   } catch (error) {
     return INVÁLID_TOKEN;
   }
 };
 
+const getAllrecipesService = async () => {
+  const result = await recipesModel.getAllrecipes();
+  return result;
+};
+
 module.exports = {
   createRecipeService,
+  getAllrecipesService,
 };

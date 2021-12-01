@@ -8,6 +8,7 @@ app.use(express.json());
 app.post('/users', createUser.create);
 app.post('/login', login.login);
 app.post('/recipes', recipes.create);
+app.get('/recipes', recipes.getRecipes);
 
 // Não remover esse end-point, ele é necessário para o avaliador
 app.get('/', (request, response) => {
