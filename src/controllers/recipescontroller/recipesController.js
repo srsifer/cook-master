@@ -10,7 +10,7 @@ const create = async (req, res) => {
   if ('status' in result) {
     return res.status(result.status).json({ message: result.message });
   }
-  res.status(200).json({ mensge: result });
+  res.status(201).json(result);
 };
 
 module.exports = { create };
