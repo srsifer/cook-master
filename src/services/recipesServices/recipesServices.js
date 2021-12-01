@@ -14,10 +14,10 @@ const validationEntries = (recipesEntries) => {
 };
 
 const createRecipeService = async (token, recipes) => {
- const validEntries = validationEntries(recipes);
-  if (validEntries) return INVÁLID_ENTRIES;
   const decoded = jwt.verify(token, secret);
   console.log(decoded);
+ const validEntries = validationEntries(recipes);
+  if (validEntries) return INVÁLID_ENTRIES;
 
   const result = await recipesModel.createRecipesInDB(recipes);
   return result;

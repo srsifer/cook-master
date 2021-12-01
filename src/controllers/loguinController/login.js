@@ -7,8 +7,7 @@ const login = async (req, res) => {
   if ('status' in result) {
     return res.status(result.status).json({ message: result.message });
   }
-  console.log(result);
-  
+
   res.status(200).json(result);
 };
 

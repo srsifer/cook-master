@@ -25,12 +25,12 @@ const validateCredentials = (email, password) => {
 const login = async (email, password) => {
  if (validateCredentials(email, password)) return ALL_FIELDS;
  const result = await userModel.findEmail(email);
-
+ const { _id } = result;
  if (!result) return LOGIN_ERROR;
 
  if (password !== result.password) return LOGIN_ERROR;
  const token = jwt.sign({ 
-   _id: result.id,
+   _id,
     email: result.email, 
     role: result.role, 
   }, secret, jwtConfig);
