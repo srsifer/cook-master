@@ -9,7 +9,6 @@ const createUser = async (name, email, password) => {
 };
 
 const findEmail = async (email) => {
-  console.log(email);
   const db = await connection();
   const emailexist = await db
   .collection('users').findOne({ email });

@@ -1,4 +1,4 @@
-const createUserModel = require('../model/user/createUserModel');
+const userModel = require('../../model/user/userModel');
 // objetos de erro: 
 // regex obtido pelo aluno lucas A. santos
 const regExp = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -19,7 +19,7 @@ const entriesValidation = (name, email, password) => {
 };
 
 const findEmail = async (email) => {
-  const emailExist = await createUserModel.findEmail(email);
+  const emailExist = await userModel.findEmail(email);
   if (emailExist !== null) return true;
 };
 
@@ -40,7 +40,7 @@ const createUserRules = async (name, email, password) => {
   const emailExists = await findEmail(email); 
   if (emailExists) return EMAIL_ALREADY_REGISTERED;
 
- const createUserInDatabase = await createUserModel.createUser(name, email, password);
+ const createUserInDatabase = await userModel.createUser(name, email, password);
  const responseFiltred = responseFilter(createUserInDatabase);
   return responseFiltred;
 };
