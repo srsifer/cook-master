@@ -14,11 +14,6 @@ const INVÁLID_TOKEN = {
 
 };
 
-const INVÁLID_ID = {
-  status: 400,
-  message: 'recipe not found',
-};
-
 const NOT_FOUND = {
   status: 404,
   message: 'recipe not found',
