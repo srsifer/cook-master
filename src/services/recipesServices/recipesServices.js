@@ -14,6 +14,16 @@ const INVÁLID_TOKEN = {
 
 };
 
+const INVÁLID_ID = {
+  status: 400,
+  message: 'recipe not found',
+};
+
+const NOT_FOUND = {
+  status: 404,
+  message: 'recipe not found',
+};
+
 const validationEntries = (recipesEntries) => {
   const { name, ingredients, preparation } = recipesEntries;
   if (!name || !ingredients || !preparation) return true;
@@ -52,7 +62,15 @@ const getAllrecipesService = async () => {
   return result;
 };
 
+const getRecipesByServices = async (id) => {
+  if (id.length < 24) return NOT_FOUND;
+ const recipes = await recipesModel.getRecipesByModel(id);
+ if (!recipes) return NOT_FOUND;
+ return recipes;
+};
+
 module.exports = {
   createRecipeService,
   getAllrecipesService,
+  getRecipesByServices,
 };

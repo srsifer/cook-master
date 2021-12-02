@@ -18,4 +18,13 @@ const getRecipes = async (_req, res) => {
   return res.status(200).json(result);
 };
 
-module.exports = { create, getRecipes };
+const getRecipesById = async (req, res) => {
+  const { id } = req.params;
+  const result = await recipesServices.getRecipesByServices(id);
+  if ('status' in result) {
+    return res.status(result.status).json({ message: result.message });
+  }
+  res.status(200).json(result);
+};
+
+module.exports = { create, getRecipes, getRecipesById };
