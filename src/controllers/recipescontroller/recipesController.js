@@ -27,4 +27,19 @@ const getRecipesById = async (req, res) => {
   res.status(200).json(result);
 };
 
-module.exports = { create, getRecipes, getRecipesById };
+const updateRecipesById = async (req, res) => {
+  const { id } = req.params;
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ message: 'missing auth token' });
+  }
+
+  const { body } = req;
+  const result = await recipesServices.updateRecipesByIdService(id, token, body);
+  if ('status' in result) {
+    return res.status(result.status).json({ message: result.message });
+  }
+  res.status(200).json(result);
+};
+
+module.exports = { create, getRecipes, getRecipesById, updateRecipesById };
