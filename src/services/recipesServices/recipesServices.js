@@ -73,8 +73,18 @@ const updateRecipesByIdService = async (_id, token, body) => {
     const objectRecipe = createObjectRecipe(decoded, body);
     const result = await recipesModel.updateById(objectRecipe, _id);
      if (!result) return null;
-     console.log({ _id, ...objectRecipe });
     return { _id, ...objectRecipe };
+  } catch (error) {
+    return INVÁLID_TOKEN;
+  }
+};
+
+const deletRecipesByIdService = async (_id, token) => {
+  try {
+    jwt.verify(token, secret);
+    const result = await recipesModel.deletRecipesById(_id);
+   
+    return result;
   } catch (error) {
     return INVÁLID_TOKEN;
   }
@@ -85,4 +95,5 @@ module.exports = {
   getAllrecipesService,
   getRecipesByServices,
   updateRecipesByIdService,
+  deletRecipesByIdService,
 };

@@ -11,6 +11,7 @@ app.post('/recipes', recipes.create);
 app.get('/recipes', recipes.getRecipes);
 app.get('/recipes/:id', recipes.getRecipesById);
 app.put('/recipes/:id', recipes.updateRecipesById);
+app.delete('/recipes/:id', recipes.deleteRecipesById);
 
 // Não remover esse end-point, ele é necessário para o avaliador
 app.get('/', (request, response) => {

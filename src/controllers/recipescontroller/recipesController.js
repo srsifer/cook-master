@@ -42,4 +42,25 @@ const updateRecipesById = async (req, res) => {
   res.status(200).json(result);
 };
 
-module.exports = { create, getRecipes, getRecipesById, updateRecipesById };
+ const deleteRecipesById = async (req, res) => {
+  const { id } = req.params;
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ message: 'missing auth token' });
+  }
+
+  const { body } = req;
+  const result = await recipesServices.deletRecipesByIdService(id, token, body);
+  if ('status' in result) {
+    return res.status(result.status).json({ message: result.message });
+  }
+  res.status(204).json();
+ };
+
+module.exports = {
+  create,
+  getRecipes,
+  getRecipesById,
+  updateRecipesById,
+  deleteRecipesById,
+};
