@@ -83,8 +83,23 @@ const deletRecipesByIdService = async (_id, token) => {
   try {
     jwt.verify(token, secret);
     const result = await recipesModel.deletRecipesById(_id);
-   
+    
     return result;
+  } catch (error) {
+    return INVÁLID_TOKEN;
+  }
+};
+
+const updateImaageService = async (id, token) => {
+  const LOCAL_URI = 'localhost:3000'; 
+  const imagePath = `${LOCAL_URI}/src/uploads/${id}.jpeg`;
+  try {
+    jwt.verify(token, secret);
+    const result = await recipesModel.updateImageRecipeModel(imagePath, id);
+    if (!result) console.log('deu ruim ');
+    const updated = await recipesModel.getRecipesByModel(id);
+
+    return updated;
   } catch (error) {
     return INVÁLID_TOKEN;
   }
@@ -96,4 +111,5 @@ module.exports = {
   getRecipesByServices,
   updateRecipesByIdService,
   deletRecipesByIdService,
+  updateImaageService,
 };

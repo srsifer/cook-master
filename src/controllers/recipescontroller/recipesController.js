@@ -57,10 +57,22 @@ const updateRecipesById = async (req, res) => {
   res.status(204).json();
  };
 
+ const uploadImage = async (req, res) => {
+   const { id } = req.params;
+   const token = req.headers.authorization;
+   if (!token) {
+    return res.status(401).json({ message: 'missing auth token' });
+  }
+   const result = await recipesServices.updateImaageService(id, token);
+  
+   res.status(200).json(result);
+ };
+
 module.exports = {
   create,
   getRecipes,
   getRecipesById,
   updateRecipesById,
   deleteRecipesById,
+  uploadImage,
 };
